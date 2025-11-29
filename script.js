@@ -4,7 +4,7 @@ window.onload = function () {
     var username = document.getElementById("username").value;
 
     //regex to check if username has at least one letter and one number 1 special character, 8 characters long
-    var regex =  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    var regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{8,}$/;
     if (regex.test(username)) {
       //set the username border to green
       document.getElementById("username").style.borderColor = "green";
