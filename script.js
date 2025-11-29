@@ -5,8 +5,15 @@ window.onload = () => {
     const username = usernameInput.value;
 
     // Regex to check if username has at least one letter, one number, one special character, and is 8 characters long
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    usernameInput.style.borderColor = regex.test(username) ? "green" : "red";
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{8,}$/;
+    if (regex.test(username)) {
+      //set the username border to green
+      document.getElementById("username").style.borderColor = "green";
+    } else {
+      //set the username border to red
+      document.getElementById("username").style.borderColor = "red";
+    }
+
   });
 
   document.getElementById("download").addEventListener("click", () => {
