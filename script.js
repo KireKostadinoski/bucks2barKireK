@@ -3,6 +3,7 @@ window.onload = () => {
   const usernameInput = document.getElementById("username");
   usernameInput.addEventListener("input", () => {
     const username = usernameInput.value;
+    const emailbutton = document.getElementById("send-email");
 
     // Regex to check if username has at least one letter, one number, one special character, and is 8 characters long
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&~])[A-Za-z\d@$!%*#?&~]{8,}$/;
@@ -25,6 +26,41 @@ window.onload = () => {
     link.download = "chart.png";
     link.click();
   });
+
+  document.getElementById("send-email").addEventListener("click", () => {
+  const email = document.getElementById("user-email").value;
+
+  // Validate email
+  if (!email || !/\S+@\S+\.\S+/.test(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  // Get the chart as a base64 image
+  const canvas = document.getElementById("myChart");
+  const chartImage = canvas.toDataURL("image/png");
+
+  // Send the data to the server
+  fetch("http://localhost:3000/send-email", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, chartImage }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message) {
+        alert(data.message);
+      } else {
+        alert("Failed to send email.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("An error occurred while sending the email.");
+    });
+});
 
   // Get the context of the canvas element we want to select
   const ctx = document.getElementById("myChart").getContext("2d");
